@@ -1,7 +1,5 @@
-#include <stdlib.h>
+#include <sys/stat.h>
 #include <stdio.h>
-    
-#define BUFSIZE 256
     
 // This program prints the size of a specified file in bytes
 int main(int argc, char** argv) {
@@ -10,7 +8,11 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Please provide the address of a file as an input.\n");
         return -1;
     }
-    char cmd[BUFSIZE] = "wc -c < ";
-    strcat(cmd, argv[1]);
-    system(cmd);
+    char *filename = argv[1];
+    struct stat fs;
+    if (stat(filename, &fs) == -1) {
+        fprintf(stderr, "Error: File does not exist.\n");
+        return -1;
+    }
+    printf("The size of the file is %lld bytes.\n", fs.st_size);
 }
