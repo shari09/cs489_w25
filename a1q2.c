@@ -14,5 +14,5 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Error: File does not exist.\n");
         return -1;
     }
-    printf("The size of the file is %lld bytes.\n", fs.st_size);
+    printf("%lld bytes.\n", fs.st_size);
 }
